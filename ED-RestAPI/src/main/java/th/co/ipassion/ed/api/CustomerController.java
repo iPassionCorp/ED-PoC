@@ -25,8 +25,8 @@ public class CustomerController {
 
 		// save a couple of customers
 		repository.save(new Customer("Jack", "Bauer"));
-		repository.save(new Customer("Chloe", "O'Brian"));
-		repository.save(new Customer("Kim", "Bauer"));
+		repository.save(new Customer("Chloe", "O'Brian", "555 Bangkok"));
+		repository.save(new Customer("Kim", "Bauer", "123 ABC Rd."));
 		repository.save(new Customer("David", "Palmer"));
 		repository.save(new Customer("Michelle", "Dessler"));
 
