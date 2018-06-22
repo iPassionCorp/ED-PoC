@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,6 @@ import com.google.gson.Gson;
 
 import th.co.ipassion.ed.model.Customer;
 import th.co.ipassion.ed.model.PocCustomer;
-import th.co.ipassion.ed.model.PocMGroupProduct;
 import th.co.ipassion.ed.repository.CustomerRepository;
 import th.co.ipassion.ed.repository.PocCustomerRepository;
 import th.co.ipassion.ed.repository.PocMGroupProductRepository;
@@ -69,24 +69,34 @@ public class CustomerController {
 	}
 	
 	//4001
-	@RequestMapping("/findCustomer")
+	@RequestMapping(value = "/findCustomer", method = RequestMethod.POST, produces = "application/json")
 	@CrossOrigin(origins = "*", maxAge = 3600)
-	public Iterable<PocCustomer> findCustomer() {
-		return pocCustomerRepository.findAll();
+	public Iterable<PocCustomer> findCustomer(@RequestBody Map<String, Object> req) {
+		String cardId = (String)req.get("cardId");
+		String name = (String)req.get("name");
+		Iterable<PocCustomer> res= null;
+		if((!StringUtils.isEmpty(cardId))&&(!StringUtils.isEmpty(name))) {
+			res = pocCustomerRepository.findByCardIdIsAndFullNameIsContaining(cardId, name);
+		}else if((!StringUtils.isEmpty(cardId))&&(StringUtils.isEmpty(name))) {
+			res = pocCustomerRepository.findByCardId(cardId);
+		}else if((StringUtils.isEmpty(cardId))&&(!StringUtils.isEmpty(name))) {
+			res = pocCustomerRepository.findByFullNameIsContaining(name);
+		}
+		return res;
 	}
 	
-	//4002
-	@RequestMapping("/getCategories")
-	@CrossOrigin(origins = "*", maxAge = 3600)
-	public  List<Map<String, Object>> getCategories() {
-		return jdbcTemplate.queryForList("select  gp_id,GP_NAME from POC_M_GROUP_PRODUCT group by gp_id,GP_NAME");
-	}
-	
-	//4003
-	@RequestMapping("/getProductList")
-	@CrossOrigin(origins = "*", maxAge = 3600)
-	public Iterable<PocMGroupProduct> getProductList() {
-		return pocMGroupProductRepository.findAll();
+	@RequestMapping(value = "/saveCustomer", method = RequestMethod.POST, produces = "application/json")
+	public Map<String, Object> saveCus(@RequestBody PocCustomer pocCustomer) {
+		Map<String, Object> res = new HashMap<>();
+		Gson gson = new Gson();
+		try {
+			pocCustomerRepository.save(pocCustomer);
+			log.info(gson.toJson(pocCustomer));
+			res.put("res", "saved");
+		} catch (Exception e) {
+			log.error(e.getMessage(),e);
+		}
+		return res;
 	}
 	
 	//4004
@@ -100,9 +110,11 @@ public class CustomerController {
 			log.info(gson.toJson(req));
 			res.put("res", "saved");
 		} catch (Exception e) {
-			res.put("res", "error");
+		
 		}
 		return res;
 	}
+	
+	
 	
 }
