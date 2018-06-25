@@ -242,6 +242,14 @@ $grey: #666;
   text-align: right;
 }
 
+thead>tr>th {
+  cursor: pointer;
+}
+
+.cursor-default{
+  cursor: default;
+}
+
 //MEDIA QUERY
 @media (min-width: 992px) {
   #navmenu .navbar-expand-lg .navbar-nav .nav-link{

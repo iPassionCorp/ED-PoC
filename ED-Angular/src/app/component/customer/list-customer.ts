@@ -24,4 +24,12 @@ export class ListCustomerComponent implements OnInit{
     this.pageSize = val;
   }
 
+   //sorting
+   private key: string = 'name';
+   private reverse: boolean = false;
+   private sort(key){
+     this.key = key;
+     this.reverse = !this.reverse;
+   }
+
 }
