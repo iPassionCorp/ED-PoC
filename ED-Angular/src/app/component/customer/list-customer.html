@@ -1,0 +1,64 @@
+<div class="container">
+    <form class="needs-validation" novalidate>
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-primary text-center">
+                    <span class="text-default">ระบุเงื่อนไขการจดทะเบียนเบื้องต้น</span>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 offset-sm-3">
+                
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Table Customer -->
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-auto pr-0 pt-2">แสดง</div>
+        <div class="col-auto pl-2 pr-2">
+            <select class="form-control" (change)="lengthChange($event.target.value)">
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+            </select>
+        </div>
+        <div class="col-auto pl-0 pt-2">รายการ</div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead>
+                        <tr class="table-primary">
+                            <th scope="col" rowspan="2" class="text-center align-middle">ลำดับที่</th>
+                            <th scope="col" rowspan="2" class="text-center align-middle">รหัสผู้ประกอบการ<br>(CUS_ID)</th>
+                            <th scope="col" rowspan="2" class="text-center align-middle">เลขประจำตัวผู้เสียภาษี 13 หลัก</th>
+                            <th scope="col" colspan="2" class="text-center">ชื่อผู้ประกอบอุตสาหกรรม</th>
+                        </tr>
+                        <tr class="table-primary">
+                            <th class="text-center">ชื่อผู้ประกอบอุตสาหกรรม</th>
+                            <th class="text-center">ที่อยู่</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of customers | paginate: { itemsPerPage: pageSize, currentPage: p }; let i = index">
+                            <td scope="row" class="text-center">{{i+1}}</td>
+                            <td>{{item.cusId}}</td>
+                            <td>{{item.cardId}}</td>
+                            <td>{{item.fullName}}</td>
+                            <td>{{item.address}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <pagination-controls (pageChange)="p = $event"
+                previousLabel="ก่อน"
+                nextLabel="ถัดไป"
+                maxSize="9"
+                directionLinks="true"
+                autoHide="true"
+            ></pagination-controls>
+        </div>
+    </div>
+</div>

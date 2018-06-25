@@ -73,6 +73,7 @@ $grey: #666;
 .width-icon{
   width: 42px;
 }
+
 //NAVBAR CUSTOM
 #navmenu .nav-profile{
   padding: 0.25rem;
@@ -170,6 +171,9 @@ $grey: #666;
 .text-orange{
   color: #f2784b !important;
 }
+.text-default{
+  color: #000 !important;
+}
 .block-reward{
   border: 1px solid #e2e2e2;
   position: relative;
@@ -219,6 +223,7 @@ $grey: #666;
   position: relative;
 }
 .container-page{
+  padding-top: 3rem;
   padding-bottom: 100px;
 }
 .footer{
@@ -231,6 +236,12 @@ $grey: #666;
   bottom: 0;
   left: 0;
 }
+
+//POC
+.ngx-pagination{
+  text-align: right;
+}
+
 //MEDIA QUERY
 @media (min-width: 992px) {
   #navmenu .navbar-expand-lg .navbar-nav .nav-link{
