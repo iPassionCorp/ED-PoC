@@ -39,22 +39,22 @@
                             <th scope="col" rowspan="2" class="text-center align-middle" (click)="sort('cardId')">
                                 เลขประจำตัวผู้เสียภาษี 13 หลัก <i class="fa" *ngIf="key =='cardId'" [ngClass]="{'fa-sort-desc':reverse,'fa-sort-asc':!reverse}" aria-hidden="true"></i>
                             </th>
-                            <th scope="col" colspan="2" class="text-center cursor-default">ชื่อผู้ประกอบอุตสาหกรรม</th>
+                            <th scope="col" colspan="2" class="text-center cursor-default align-middle">ชื่อผู้ประกอบอุตสาหกรรม</th>
                         </tr>
                         <tr class="table-primary">
-                            <th class="text-center" (click)="sort('fullName')">
+                            <th class="text-center align-middle" (click)="sort('fullName')">
                                 ชื่อผู้ประกอบอุตสาหกรรม <i class="fa" *ngIf="key =='fullName'" [ngClass]="{'fa-sort-desc':reverse,'fa-sort-asc':!reverse}" aria-hidden="true"></i>
                             </th>
-                            <th class="text-center cursor-default">ที่อยู่</th>
+                            <th class="text-center cursor-default align-middle">ที่อยู่</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of customers | orderBy: key : reverse | paginate: { itemsPerPage: pageSize, currentPage: p }; let i = index">
-                            <td scope="row" class="text-center">{{i}}</td>
-                            <td>{{item.cusId}}</td>
-                            <td>{{item.cardId}}</td>
-                            <td>{{item.fullName}}</td>
-                            <td>{{item.address}}</td>
+                            <td scope="row" class="text-center align-middle">{{i}}</td>
+                            <td class="text-center align-middle">{{item.cusId}}</td>
+                            <td class="text-center align-middle">{{item.cardId}}</td>
+                            <td class="align-middle">{{item.fullName}}</td>
+                            <td class="align-middle">{{item.address}}</td>
                         </tr>
                     </tbody>
                 </table>
