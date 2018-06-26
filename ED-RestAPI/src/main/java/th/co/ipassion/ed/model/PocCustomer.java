@@ -30,6 +30,12 @@ public class PocCustomer implements Serializable {
 
 	@Column(name="FULL_NAME")
 	private String fullName;
+	
+	@Column(name="PHONE")
+	private String phone;
+	
+	@Column(name="EMAIL")
+	private String email;
 
 	public PocCustomer() {
 	}
@@ -65,5 +71,23 @@ public class PocCustomer implements Serializable {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 
 }
