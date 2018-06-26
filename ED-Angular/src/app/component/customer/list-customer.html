@@ -1,13 +1,49 @@
 <div class="container">
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" name="customerSearchForm" (ngSubmit)="submitSearchCustomer()" novalidate>
         <div class="row">
             <div class="col-12">
                 <div class="alert alert-primary text-center">
                     <span class="text-default">ระบุเงื่อนไขการจดทะเบียนเบื้องต้น</span>
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-12 col-sm-6 offset-sm-3">
-                
+               <div class="row mb-2">
+                    <label for="cardId" class="col-12 col-sm-6 text-sm-right pt-2">เลขประจำตัวผู้เสียภาษี 13 หลัก:</label>
+                    <div class="col-12 col-sm-6">
+                        <input type="text" class="form-control" 
+                        NumberOnly id="cardId" name="cardId" [(ngModel)]="model.cardId" 
+                        #cardId="ngModel" maxlength="13">
+                    </div>
+               </div>
+            </div>
+            <div class="col-12 col-sm-6 offset-sm-3">
+                <div class="row mb-2">
+                    <label for="fullName" class="col-12 col-sm-6 text-sm-right pt-2">ชื่อผู้ประกอบอุตสาหกรรม:</label>
+                    <div class="col-12 col-sm-6">
+                        <input type="text" class="form-control" id="fullName" name="fullName" [(ngModel)]="model.fullName" #fullName="ngModel">
+                    </div>
+               </div>
+            </div>
+            <div class="col-12 col-sm-6 offset-sm-3">
+                <div class="row mb-2">
+                    <label for="cusType" class="col-12 col-sm-6 text-sm-right pt-2">ความประสงค์</label>
+                    <div class="col-12 col-sm-6">
+                        <select class="form-control">
+                            <option>ขอลงทะเบียนสรรพสามิต</option>
+                        </select>
+                    </div>
+               </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="border-top border-bottom text-center pt-2 pb-2 bg-light mt-2 mb-4">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> ค้นหา</button>&nbsp;
+                    <button type="reset" class="btn btn-warning"><i class="fa fa-refresh"></i> ล้างหน้าจอ</button>&nbsp;
+                    <button type="button" class="btn btn-success"><i class="fa fa-plus"></i> รายการใหม่</button>
+                </div>
             </div>
         </div>
     </form>
@@ -50,11 +86,14 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of customers | orderBy: key : reverse | paginate: { itemsPerPage: pageSize, currentPage: p }; let i = index">
-                            <td scope="row" class="text-center align-middle">{{i}}</td>
+                            <td scope="row" class="text-center align-middle">{{i+1}}</td>
                             <td class="text-center align-middle">{{item.cusId}}</td>
                             <td class="text-center align-middle">{{item.cardId}}</td>
                             <td class="align-middle">{{item.fullName}}</td>
                             <td class="align-middle">{{item.address}}</td>
+                        </tr>
+                        <tr *ngIf="customers.length == 0">
+                            <td colspan="5" class="text-center">ไม่มีข้อมูลในตาราง</td>
                         </tr>
                     </tbody>
                 </table>

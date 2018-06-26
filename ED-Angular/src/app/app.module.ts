@@ -8,17 +8,19 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { ListCustomerComponent } from './component/customer/list-customer';
 import { FormsModule } from '@angular/forms';
-import { CollapseModule } from 'ngx-bootstrap';
+import { CollapseModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
+import { NumberOnlyDirective } from './directives/number.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    ListCustomerComponent
+    ListCustomerComponent,
+    NumberOnlyDirective,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { Ng2OrderModule } from 'ng2-order-pipe';
     CollapseModule.forRoot(),
     NgxPaginationModule,
     Ng2SearchPipeModule,
-    Ng2OrderModule
+    Ng2OrderModule,
+    BsDatepickerModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
