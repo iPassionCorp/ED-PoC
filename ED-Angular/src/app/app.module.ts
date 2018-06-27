@@ -8,13 +8,14 @@ import { NavbarComponent } from './component/navbar/navbar.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { ListCustomerComponent } from './component/customer/list-customer';
 import { FormsModule } from '@angular/forms';
-import { CollapseModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { CollapseModule, BsDatepickerModule, TabsModule } from 'ngx-bootstrap';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NumberOnlyDirective } from './directives/number.directive';
 import { DataTablesModule } from 'angular-datatables';
 import { AngularWayComponent } from './component/AngularWayComponent/angular-way.component';
+import { RegisterCustomer } from './component/register-customer/register-customer';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AngularWayComponent } from './component/AngularWayComponent/angular-way
     FooterComponent,
     ListCustomerComponent,
     NumberOnlyDirective,
-    AngularWayComponent
+    AngularWayComponent,
+    RegisterCustomer
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,9 @@ import { AngularWayComponent } from './component/AngularWayComponent/angular-way
     NgxPaginationModule,
     Ng2SearchPipeModule,
     Ng2OrderModule,
-    DataTablesModule
+    DataTablesModule,
+    BsDatepickerModule.forRoot(),
+    TabsModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

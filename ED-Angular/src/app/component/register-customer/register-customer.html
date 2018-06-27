@@ -1,0 +1,66 @@
+<form>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-2">
+                <div class="form-inline float-right">
+                    <label class="mr-1" for="regisNo">ทะเบียนรับเลขที่: </label>
+                    <input type="text" class="form-control" id="regisNo" name="regisNo">
+                </div>
+            </div>
+            <div class="col-12 mb-2">
+                <div class="form-inline float-right">
+                    <label class="mr-1" for="receiveDate">วัน เดือน ปี ที่รับ: </label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="receiveDate" name="receiveDate" 
+                        bsDatepicker #dp="bsDatepicker" 
+                        [bsConfig]="{ 
+                            dateInputFormat: 'DD/MM/YYYY', 
+                            containerClass: 'theme-blue',
+                            showWeekNumbers: false 
+                        }">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-inline float-right">
+                    <label class="mr-1" for="">ผู้รับแบบ</label>
+                    <select class="form-control" id="recipient" name="recipient"></select>
+                </div>
+            </div>
+            <div class="col-12">
+                <hr>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab panel -->
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <tabset>
+                    <tab heading="ผู้ประกอบการ">
+                        <div class="row">
+                            <div class="col-12 mb-4">
+                                <span><b><u>ชื่อผู้ประกอบอุตสาหกรรม/ผู้นำเข้า/ผู้ประกอบกิจการสถานศึกษา</u></b></span>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="form-group">
+                                    <div class="form-inline">
+                                        <label class="mr-2">ประเภทผู้ประกอบการ: </label>
+                                        <select class="form-control">
+                                            <option>- เลือก -</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
+                    <tab heading="มีความประสงค์">Basic content 1</tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</form>
