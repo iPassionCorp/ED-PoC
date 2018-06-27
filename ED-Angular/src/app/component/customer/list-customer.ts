@@ -6,11 +6,11 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class ListCustomerComponent implements OnInit{
-  public customers: any;
-  public countCus: number;
-  public p: number = 1;
-  public pageSize: number = 5;
-  public model: any = {};
+  private customers: any;
+  private countCus: number;
+  private p: number = 1;
+  private pageSize: number = 5;
+  private model: any = {};
 
   // sorting
   private key: string = 'name';
@@ -19,7 +19,6 @@ export class ListCustomerComponent implements OnInit{
     this.key = key;
     this.reverse = !this.reverse;
   }
-  
 
   constructor(private http: HttpClient) {}
 

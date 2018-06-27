@@ -2,32 +2,35 @@
     <div class="container">
         <div class="row">
             <div class="col-12 mb-2">
-                <div class="form-inline float-right">
-                    <label class="mr-1" for="regisNo">ทะเบียนรับเลขที่: </label>
-                    <input type="text" class="form-control" id="regisNo" name="regisNo">
+                <div class="row">
+                    <label class="col-12 col-sm-9 pt-2 pr-sm-0 text-sm-right">ทะเบียนรับเลขที่: </label>
+                    <div class="col-12 col-sm-3">
+                        <input type="text" class="form-control" id="receiveid" name="receiveid">
+                    </div>
                 </div>
             </div>
             <div class="col-12 mb-2">
-                <div class="form-inline float-right">
-                    <label class="mr-1" for="receiveDate">วัน เดือน ปี ที่รับ: </label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="receiveDate" name="receiveDate" 
-                        bsDatepicker #dp="bsDatepicker" 
-                        [bsConfig]="{ 
-                            dateInputFormat: 'DD/MM/YYYY', 
-                            containerClass: 'theme-blue',
-                            showWeekNumbers: false 
-                        }">
-                        <div class="input-group-append">
-                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                <div class="row">
+                    <label class="col-12 col-sm-9 pt-2 pr-sm-0 text-sm-right">วัน เดือน ปี ที่รับ: </label>
+                    <div class="col-12 col-sm-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control datepicker" id="receivedate" name="receivedate" autocomplete="off" data-date-format="mm/dd/yyyy">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-12">
-                <div class="form-inline float-right">
-                    <label class="mr-1" for="">ผู้รับแบบ</label>
-                    <select class="form-control" id="recipient" name="recipient"></select>
+                <div class="row">
+                    <label class="col-12 col-sm-9 pt-2 pr-sm-0 text-sm-right" for="">ผู้รับแบบ</label>
+                    <div class="col-12 col-sm-3">
+                        <select class="form-control" id="receiver" name="receiver">
+                            <option>- กรุณาเลือก -</option>
+                            <option value="" *ngFor="let item of getReceiver" value="{{item.rid}}">{{item.rfullName}}</option>
+                        </select>
+                    </div>                    
                 </div>
             </div>
             <div class="col-12">
@@ -47,20 +50,268 @@
                                 <span><b><u>ชื่อผู้ประกอบอุตสาหกรรม/ผู้นำเข้า/ผู้ประกอบกิจการสถานศึกษา</u></b></span>
                             </div>
                             <div class="col-12 mb-2">
-                                <div class="form-group">
-                                    <div class="form-inline">
-                                        <label class="mr-2">ประเภทผู้ประกอบการ: </label>
-                                        <select class="form-control">
-                                            <option>- เลือก -</option>
+                                <div class="row">
+                                    <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">ประเภทผู้ประกอบการ: </label>
+                                    <div class="col-12 col-sm-4">
+                                        <select class="form-control select2" id="cusType" name="cusType">
+                                            <option>- กรุณาเลือก -</option>
+                                            <option *ngFor="let item of getCustomerType" value="{{item.ctypeId}}">{{item.ctypeName}}</option>
                                         </select>
+                                    </div>    
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="row">
+                                    <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">เลขประจำตัวผู้เสียภาษีอากร: </label>
+                                    <div class="col-12 col-sm-4">
+                                            <input type="text" class="form-control mask-cardId" id="cardId" name="cardId" 
+                                            NumberOnly autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="row">
+                                    <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">คำนำหน้าชื่อ: </label>
+                                    <div class="col-12 col-sm-2">
+                                        <select class="form-control select2" id="titleName" name="titleName">
+                                            <option>- กรุณาเลือก -</option>
+                                            <option value="นางสาว">นางสาว</option>
+                                            <option value="นาง">นาง</option>
+                                            <option value="นาย">นาย</option>
+                                        </select>
+                                    </div>                                   
+                                </div>
+                            </div>
+                             <div class="col-12 mb-2">
+                                <div class="row">
+                                     <div class="col-12 mb-2">
+                                        <div class="row">
+                                            <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">ผู้ขออนุญาตชื่อ: </label>
+                                            <div class="col-12 col-sm-4">
+                                                <input type="text" class="form-control" id="firstName" name="firstName">
+                                            </div>
+                                            <label class="col-12 col-sm-1 pr-sm-0 text-sm-right">นามสกุล/สาขา: </label>
+                                            <div class="col-12 col-sm-4">
+                                                <input type="text" class="form-control" id="lastName" name="lastName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>เลขรหัสประจำบ้าน: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>ที่อยู่/ที่ตั้งสำนักงานใหญ่เลขที่: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>ชื่ออาคาร: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>ห้องเลขที่: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>ชั้นที่: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>หมู่ที่: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>ตรอก/ซอย: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>ถนน: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>ตำบล/แขวง: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>อำเภอ/เขต: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>จังหวัด: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>รหัสไปรษณีย์: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>โทรศัพท์: </label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="mb-2">
+                                    <label>E-mail Address: </label>
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12"><hr></div>
+                            <div class="col-12 mb-4 text-center">
+                                <span class="text-danger">**กรณีผู้ประกอบการวิสาหกิจชุมชน/กลุ่มเกษตรกร/สหกรณ์/ผลิตสุราชุมชน</span>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="row">
+                                    <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">คำนำหน้าชื่อ: </label>
+                                    <div class="col-12 col-sm-2">
+                                        <select class="form-control select2" id="titleName2" name="titleName2">
+                                            <option>- กรุณาเลือก -</option>
+                                            <option value="นางสาว">นางสาว</option>
+                                            <option value="นาง">นาง</option>
+                                            <option value="นาย">นาย</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="col-12 mb-2">
+                                <div class="row">
+                                    <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">ผู้ขออนุญาตชื่อ: </label>
+                                    <div class="col-12 col-sm-4">
+                                        <input type="text" class="form-control" id="firstName" name="firstName">
+                                    </div>
+                                    <label class="col-12 col-sm-1 pr-sm-0 pt-2 text-sm-right">นามสกุล: </label>
+                                    <div class="col-12 col-sm-4">
+                                        <input type="text" class="form-control" id="lastName" name="lastName">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <div class="row">
+                                    <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">เลขประจำตัวประชาชน: </label>
+                                    <div class="col-12 col-sm-4">
+                                            <input type="text" class="form-control mask-cardId" id="cardId" name="cardId" 
+                                            NumberOnly autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right"></label>
+                                    <div class="col-auto">
+                                        <button type="button" class="btn btn-default">ล้างข้อมูลผู้ขออนุญาต</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </tab>
-                    <tab heading="มีความประสงค์">Basic content 1</tab>
+                    <tab heading="มีความประสงค์">
+                        <div class="row">
+                            <div class="col-12 mb-4">
+                                <span><b><u>ความประสงค์</u></b></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="mb-1">จดทะเบียนสรรพสามิต</p>
+                                <button type="button" class="btn btn-info">เพิ่มสินค้า/บริการ/นำเข้า</button>
+                            </div>
+                            <div class="col">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="taxType1" name="taxType" class="custom-control-input" checked>
+                                    <label class="custom-control-label" for="taxType1">โรงงานอุตสาหกรรม</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="taxType2" name="taxType" class="custom-control-input">
+                                    <label class="custom-control-label" for="taxType2">สถานบริการ</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="taxType3" name="taxType" class="custom-control-input">
+                                    <label class="custom-control-label" for="taxType3">สถานประกอบการนำเข้า</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><hr></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-danger">ลบ</button>
+                            </div>
+                            <div class="col">
+                                <label>ตอนสินค้า/บริการ/นำเข้า ตามพิกัดอัตราภาษี:</label>
+                                <select class="form-control select2">
+                                    <option>เลือก</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label>วันที่เริ่มผลิต/บริการ/นำเข้า:</label>
+                                <input type="text" class="form-control datepicker" autocomplete="off" data-date-format="mm/dd/yyyy">
+                            </div>
+                            <div class="col">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="tax1" name="tax" class="custom-control-input" checked>
+                                    <label class="custom-control-label" for="tax1">ชำระภาษี</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="tax2" name="tax" class="custom-control-input">
+                                    <label class="custom-control-label" for="tax2">ยกเว้นภาษี</label>
+                                </div>
+                            </div>
+                        </div>
+                    </tab>
                 </tabset>
             </div>
+                <div class="col-12 mt-3">
+                    <div class="border-top border-bottom text-center pt-2 pb-2 bg-light mt-2 mb-4">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> บันทึก</button>&nbsp;
+                        <button type="reset" class="btn btn-warning"><i class="fa fa-refresh"></i> ล้างข้อมูล</button>
+                    </div>
+                </div>
         </div>
     </div>
 </form>
