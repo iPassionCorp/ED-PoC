@@ -11,5 +11,7 @@ import th.co.ipassion.ed.model.PocMGroupProduct;
 public interface PocMGroupProductRepository extends CrudRepository<PocMGroupProduct, Long> {
 	
 	List<PocMGroupProduct> findAllByOrderByGpNameAsc();
-
+	
+	List<PocMGroupProduct> findAllByIdGpId(String gpId);
+	
 }

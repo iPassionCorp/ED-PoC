@@ -9,7 +9,14 @@ public class SaveData {
 	private long cusId;
 	List<PocRegisCusProdPK> products;
 	
-	
+	public SaveData() {
+		
+	}
+	public SaveData(long cusId, List<PocRegisCusProdPK> products) {
+		super();
+		this.cusId = cusId;
+		this.products = products;
+	}
 	public long getCusId() {
 		return cusId;
 	}
