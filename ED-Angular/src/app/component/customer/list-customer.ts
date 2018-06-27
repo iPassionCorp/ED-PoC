@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class ListCustomerComponent implements OnInit{
-  public customers: Array <any> = new Array <any> ();
+  public customers: any;
   public p: number = 1;
   public pageSize: number = 5;
   public model: any = {};

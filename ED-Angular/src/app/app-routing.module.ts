@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListCustomerComponent } from './component/customer/list-customer';
+import { RegisterCustomer } from './component/register-customer/register-customer';
 
 const appRoutes: Routes = [
-  { path: '', component: ListCustomerComponent }
+  { path: '', component: ListCustomerComponent },
+  { path: 'register-customer', component: RegisterCustomer }
 ];
 
 @NgModule({
