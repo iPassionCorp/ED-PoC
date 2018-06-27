@@ -1,7 +1,14 @@
 package th.co.ipassion.ed.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -13,7 +20,8 @@ import javax.persistence.*;
 @NamedQuery(name="PocMGroupProduct.findAll", query="SELECT p FROM PocMGroupProduct p")
 public class PocMGroupProduct implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@JsonIgnore
 	@EmbeddedId
 	private PocMGroupProductPK id;
 
@@ -49,5 +57,11 @@ public class PocMGroupProduct implements Serializable {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-
+	//json
+	public String getGpId() {
+		return this.id.getGpId();
+	}
+	public long getProductId() {
+		return this.id.getProductId();
+	}
 }

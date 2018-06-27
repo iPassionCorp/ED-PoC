@@ -1,12 +1,16 @@
 package th.co.ipassion.ed.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 /**
@@ -30,6 +34,25 @@ public class PocCustomer implements Serializable {
 
 	@Column(name="FULL_NAME")
 	private String fullName;
+	
+	@Column(name="PHONE")
+	private String phone;
+	
+	@Column(name="EMAIL")
+	private String email;
+	
+	@Column(name="RECEIVEID")
+	private long receiveid;
+	
+	@Transient
+	private String receivedate;
+	
+	@Column(name="RECEIVEDATE")
+	@Temporal(TemporalType.DATE)
+    private Date receivedate_date;
+	
+	@Column(name="R_ID")
+	private String receiver;
 
 	public PocCustomer() {
 	}
@@ -65,5 +88,54 @@ public class PocCustomer implements Serializable {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public long getReceiveid() {
+		return receiveid;
+	}
+
+	public void setReceiveid(long receiveid) {
+		this.receiveid = receiveid;
+	}
+
+	public String getReceivedate() {
+		return receivedate;
+	}
+
+	public void setReceivedate(String receivedate) {
+		this.receivedate = receivedate;
+	}
+
+	public Date getReceivedate_date() {
+		return receivedate_date;
+	}
+
+	public void setReceivedate_date(Date receivedate_date) {
+		this.receivedate_date = receivedate_date;
+	}
+
+	public String getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+	
 
 }
