@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class ListCustomerComponent implements OnInit{
-  public customers: Array <any> = new Array <any> ();
+  public customers: any;
+  public countCus: number;
   public p: number = 1;
   public pageSize: number = 5;
   public model: any = {};
@@ -18,6 +19,7 @@ export class ListCustomerComponent implements OnInit{
     this.key = key;
     this.reverse = !this.reverse;
   }
+  
 
   constructor(private http: HttpClient) {}
 
@@ -33,9 +35,9 @@ export class ListCustomerComponent implements OnInit{
 
   // search customer
   private submitSearchCustomer(){
-    this.http.post('http://13.250.227.94:7001/ED-RestAPI/findCustomer',
-    JSON.stringify(this.model)).subscribe(data => {
+    this.http.post('http://13.250.227.94:7001/ED-RestAPI/findCustomer', this.model).subscribe(data => {
       this.customers = data;
+      this.countCus = this.customers.length;
     });
     console.log(this.model);
   }
