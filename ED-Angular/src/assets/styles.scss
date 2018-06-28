@@ -103,7 +103,7 @@ $grey: #666;
   color: $grey;
 }
 #navmenu .navbar-light .navbar-nav .nav-link{
-  color: $grey;
+  color: #ffffff !important;
 }
 #navmenu nav.navbar{
   padding: 0rem 1rem;
@@ -214,8 +214,8 @@ $grey: #666;
   @include transition(all .5s);
 }
 #nav-public .nav-left:hover, #nav-public .nav-left.active{
-  color: rgba(22, 73, 154, 0.75);
-  border-bottom: 2px solid rgba(22, 73, 154, 0.75);
+  color: #fff;
+  border-bottom: 2px solid #ffffff;
 }
 
 #wrapper{
