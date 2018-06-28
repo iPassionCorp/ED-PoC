@@ -39,7 +39,8 @@
               "src/assets/bootstrap-datepicker/bootstrap-datepicker-custom.js",
               "src/assets/bootstrap-datepicker/bootstrap-datepicker.th.min.js",
               "src/assets/input-mask/inputmask.bundle.js",
-              "src/assets/select2/select2.min.js"
+              "src/assets/select2/select2.min.js",
+              "src/assets/sweetalert2.js"
             ]
           },
           "configurations": {

@@ -1,11 +1,12 @@
-<form>
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="container">
         <div class="row">
             <div class="col-12 mb-2">
                 <div class="row">
                     <label class="col-12 col-sm-9 pt-2 pr-sm-0 text-sm-right">ทะเบียนรับเลขที่: </label>
                     <div class="col-12 col-sm-3">
-                        <input type="text" class="form-control" id="receiveid" name="receiveid">
+                        <input type="text" class="form-control" NumberOnly formControlName="receiveid" 
+                        [ngClass]="{ 'is-invalid': submitted && f.receiveid.errors }">
                     </div>
                 </div>
             </div>
@@ -14,7 +15,8 @@
                     <label class="col-12 col-sm-9 pt-2 pr-sm-0 text-sm-right">วัน เดือน ปี ที่รับ: </label>
                     <div class="col-12 col-sm-3">
                         <div class="input-group">
-                            <input type="text" class="form-control datepicker" id="receivedate" name="receivedate" autocomplete="off" data-date-format="mm/dd/yyyy">
+                            <input type="text" class="form-control datepicker" autocomplete="off"
+                            formControlName="receivedate" [ngClass]="{ 'is-invalid': submitted && f.receivedate.errors }">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>
@@ -26,9 +28,10 @@
                 <div class="row">
                     <label class="col-12 col-sm-9 pt-2 pr-sm-0 text-sm-right" for="">ผู้รับแบบ</label>
                     <div class="col-12 col-sm-3">
-                        <select class="form-control" id="receiver" name="receiver">
-                            <option>- กรุณาเลือก -</option>
-                            <option value="" *ngFor="let item of getReceiver" value="{{item.rid}}">{{item.rfullName}}</option>
+                        <select class="form-control" formControlName="receiver"
+                        [ngClass]="{ 'is-invalid': submitted && f.receiver.errors }">
+                            <option value="">- กรุณาเลือก -</option>
+                            <option *ngFor="let item of getReceiver" [value]="item.rfullName">{{item.rfullName}}</option>
                         </select>
                     </div>                    
                 </div>
@@ -44,6 +47,7 @@
         <div class="row">
             <div class="col-12">
                 <tabset>
+
                     <tab heading="ผู้ประกอบการ">
                         <div class="row">
                             <div class="col-12 mb-4">
@@ -53,9 +57,10 @@
                                 <div class="row">
                                     <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">ประเภทผู้ประกอบการ: </label>
                                     <div class="col-12 col-sm-4">
-                                        <select class="form-control select2" id="cusType" name="cusType">
-                                            <option>- กรุณาเลือก -</option>
-                                            <option *ngFor="let item of getCustomerType" value="{{item.ctypeId}}">{{item.ctypeName}}</option>
+                                        <select class="form-control" formControlName="ctypeId"
+                                        [ngClass]="{ 'is-invalid': submitted && f.ctypeId.errors }">
+                                            <option value="">- กรุณาเลือก -</option>
+                                            <option *ngFor="let item of getCustomerType" [value]="item.ctypeId">{{item.ctypeName}}</option>
                                         </select>
                                     </div>    
                                 </div>
@@ -64,35 +69,44 @@
                                 <div class="row">
                                     <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">เลขประจำตัวผู้เสียภาษีอากร: </label>
                                     <div class="col-12 col-sm-4">
-                                            <input type="text" class="form-control mask-cardId" id="cardId" name="cardId" 
-                                            NumberOnly autocomplete="off">
+                                            <input type="text" class="form-control" formControlName="cardId" 
+                                            NumberOnly autocomplete="off" maxlength="13" [ngClass]="{ 'is-invalid': submitted && f.cardId.errors }">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">คำนำหน้าชื่อ: </label>
+                                    <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">ชื่อ: </label>
                                     <div class="col-12 col-sm-2">
-                                        <select class="form-control select2" id="titleName" name="titleName">
-                                            <option>- กรุณาเลือก -</option>
-                                            <option value="นางสาว">นางสาว</option>
-                                            <option value="นาง">นาง</option>
-                                            <option value="นาย">นาย</option>
-                                        </select>
-                                    </div>                                   
+                                        <div *ngFor="let item of getAllPrePostFix">
+                                            <input type="text" class="form-control" readonly formControlName="ppPrefix" 
+                                            *ngIf="getPrefix == item.ppId" [value]="item.ppPrefix">
+                                        </div>
+                                        <input class="form-control" readonly *ngIf="getPrefix == ''">                                        
+                                    </div>
+                                    <div class="col-12 col-sm-auto pl-sm-0 pr-sm-0">
+                                        <button type="button" class="btn btn-default" (click)="openModal(template)">...</button>
+                                    </div>
+                                    <div class="col-12 col-sm-4">
+                                        <input type="text" class="form-control" formControlName="firstName"
+                                        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+                                    </div>
+                                    <div class="col-12 col-sm-2 pl-sm-0">
+                                        <div *ngFor="let item of getAllPrePostFix">
+                                            <input type="text" class="form-control" readonly formControlName="ppPostfix"
+                                            *ngIf="getPrefix == item.ppId" [value]="item.ppPostfix">
+                                        </div>
+                                        <input class="form-control" readonly *ngIf="getPrefix == ''">
+                                    </div>                       
                                 </div>
                             </div>
                              <div class="col-12 mb-2">
                                 <div class="row">
                                      <div class="col-12 mb-2">
                                         <div class="row">
-                                            <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">ผู้ขออนุญาตชื่อ: </label>
+                                            <label class="col-12 col-sm-3 pr-sm-0 text-sm-right">นามสกุล/สาขา: </label>
                                             <div class="col-12 col-sm-4">
-                                                <input type="text" class="form-control" id="firstName" name="firstName">
-                                            </div>
-                                            <label class="col-12 col-sm-1 pr-sm-0 text-sm-right">นามสกุล/สาขา: </label>
-                                            <div class="col-12 col-sm-4">
-                                                <input type="text" class="form-control" id="lastName" name="lastName">
+                                                <input type="text" class="form-control" formControlName="lastName">
                                             </div>
                                         </div>
                                     </div>
@@ -106,19 +120,19 @@
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>เลขรหัสประจำบ้าน: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" NumberOnly maxlength="11" formControlName="houseNo">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>ที่อยู่/ที่ตั้งสำนักงานใหญ่เลขที่: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="office">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>ชื่ออาคาร: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="building">
                                 </div>
                             </div>
                         </div>
@@ -126,19 +140,19 @@
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>ห้องเลขที่: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="roomNo">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>ชั้นที่: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="floor">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>หมู่ที่: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="moo">
                                 </div>
                             </div>
                         </div>
@@ -146,19 +160,20 @@
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>ตรอก/ซอย: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="soi">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>ถนน: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="road">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>ตำบล/แขวง: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="district"
+                                    [ngClass]="{ 'is-invalid': submitted && f.district.errors }">
                                 </div>
                             </div>
                         </div>
@@ -166,19 +181,22 @@
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>อำเภอ/เขต: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="district2"
+                                    [ngClass]="{ 'is-invalid': submitted && f.district2.errors }">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>จังหวัด: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="province"
+                                    [ngClass]="{ 'is-invalid': submitted && f.province.errors }">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>รหัสไปรษณีย์: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="postcode"
+                                    [ngClass]="{ 'is-invalid': submitted && f.postcode.errors }">
                                 </div>
                             </div>
                         </div>
@@ -186,13 +204,14 @@
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>โทรศัพท์: </label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" formControlName="phone"
+                                    [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
                                 </div>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <div class="mb-2">
                                     <label>E-mail Address: </label>
-                                    <input type="email" class="form-control">
+                                    <input type="email" class="form-control" formControlName="email">
                                 </div>
                             </div>
                         </div>
@@ -205,8 +224,8 @@
                                 <div class="row">
                                     <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">คำนำหน้าชื่อ: </label>
                                     <div class="col-12 col-sm-2">
-                                        <select class="form-control select2" id="titleName2" name="titleName2">
-                                            <option>- กรุณาเลือก -</option>
+                                        <select class="form-control" formControlName="titleName2">
+                                            <option value="">- กรุณาเลือก -</option>
                                             <option value="นางสาว">นางสาว</option>
                                             <option value="นาง">นาง</option>
                                             <option value="นาย">นาย</option>
@@ -218,11 +237,11 @@
                                 <div class="row">
                                     <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">ผู้ขออนุญาตชื่อ: </label>
                                     <div class="col-12 col-sm-4">
-                                        <input type="text" class="form-control" id="firstName" name="firstName">
+                                        <input type="text" class="form-control" formControlName="firstName2">
                                     </div>
                                     <label class="col-12 col-sm-1 pr-sm-0 pt-2 text-sm-right">นามสกุล: </label>
                                     <div class="col-12 col-sm-4">
-                                        <input type="text" class="form-control" id="lastName" name="lastName">
+                                        <input type="text" class="form-control" formControlName="lastName2">
                                     </div>
                                 </div>
                             </div>
@@ -230,8 +249,8 @@
                                 <div class="row">
                                     <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right">เลขประจำตัวประชาชน: </label>
                                     <div class="col-12 col-sm-4">
-                                            <input type="text" class="form-control mask-cardId" id="cardId" name="cardId" 
-                                            NumberOnly autocomplete="off">
+                                            <input type="text" class="form-control" formControlName="cardId2" 
+                                            NumberOnly autocomplete="off" maxlength="13">
                                     </div>
                                 </div>
                             </div>
@@ -239,12 +258,14 @@
                                 <div class="row">
                                     <label class="col-12 col-sm-3 pr-sm-0 pt-2 text-sm-right"></label>
                                     <div class="col-auto">
-                                        <button type="button" class="btn btn-default">ล้างข้อมูลผู้ขออนุญาต</button>
+                                        <button type="button" class="btn btn-default" (click)="resetSmForm()">ล้างข้อมูลผู้ขออนุญาต</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </tab>
+
+
                     <tab heading="มีความประสงค์">
                         <div class="row">
                             <div class="col-12 mb-4">
@@ -254,23 +275,23 @@
                         <div class="row">
                             <div class="col">
                                 <p class="mb-1">จดทะเบียนสรรพสามิต</p>
-                                <button type="button" class="btn btn-info">เพิ่มสินค้า/บริการ/นำเข้า</button>
+                                <button type="button" class="btn btn-info" (click)="addNewRow()">เพิ่มสินค้า/บริการ/นำเข้า</button>
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" id="taxType1" name="taxType" class="custom-control-input" checked>
+                                    <input type="radio" id="taxType1" formControlName="taxType" name="taxType" value="01" class="custom-control-input" checked>
                                     <label class="custom-control-label" for="taxType1">โรงงานอุตสาหกรรม</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" id="taxType2" name="taxType" class="custom-control-input">
+                                    <input type="radio" id="taxType2" formControlName="taxType" name="taxType" value="02" class="custom-control-input">
                                     <label class="custom-control-label" for="taxType2">สถานบริการ</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" id="taxType3" name="taxType" class="custom-control-input">
+                                    <input type="radio" id="taxType3" formControlName="taxType" name="taxType" value="03" class="custom-control-input">
                                     <label class="custom-control-label" for="taxType3">สถานประกอบการนำเข้า</label>
                                 </div>
                             </div>
@@ -279,28 +300,71 @@
                             <div class="col"><hr></div>
                         </div>
                         <div class="row">
-                            <div class="col">
-                                <button type="button" class="btn btn-danger">ลบ</button>
+                            <div class="col-12">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-0 cursor-default"></th>
+                                            <th class="border-0 cursor-default"></th>
+                                            <th class="border-0 cursor-default"></th>
+                                            <th class="border-0 cursor-default"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody formArrayName="products">
+                                        <tr [formGroupName]="i" *ngFor="let itemrow of registerForm.controls.products.controls; let i=index">
+                                            <div *ngIf="i > 0">
+                                                <td scope="row" class="border-0 align-middle"><button type="button" (click)="deleteRow(i)" class="btn btn-danger">ลบ</button></td>
+                                            <td class="border-0 align-middle">
+                                                <label>ตอนสินค้า/บริการ/นำเข้า ตามพิกัดอัตราภาษี:</label>
+                                                <select class="form-control" formControlName="categories" (change)="getProducts($event.target.value, i)">
+                                                    <option value="">- เลือก -</option>
+                                                    <option *ngFor="let item of getCategories" value="{{item.GP_ID}}" [disabled]="selection[i-1] == item.GP_ID">{{item.GP_NAME}}</option>
+                                                </select>
+                                            </td>
+                                            <td class="border-0 align-middle">
+                                                <label>วันที่เริ่มผลิต/บริการ/นำเข้า:</label>
+                                                <input type="text" class="form-control" autocomplete="off" 
+                                                data-date-format="mm/dd/yyyy" formControlName="taxDate">
+                                            </td>
+                                            <td class="border-0 align-middle">
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="tax1{{+i}}" name="tax{{i}}" checked
+                                                    class="custom-control-input" value="01">
+                                                    <label class="custom-control-label" for="tax1{{+i}}">ชำระภาษี</label>
+                                                </div>
+                                                <div class="custom-control custom-radio custom-control-inline">
+                                                    <input type="radio" id="tax2{{+i}}" name="tax{{i}}"
+                                                    class="custom-control-input" value="02" >
+                                                    <label class="custom-control-label" for="tax2{{+i}}">ยกเว้นภาษี</label>
+                                                </div>
+                                            </td>
+                                            </div>
+                                        </tr>                                
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="col">
-                                <label>ตอนสินค้า/บริการ/นำเข้า ตามพิกัดอัตราภาษี:</label>
-                                <select class="form-control select2">
-                                    <option>เลือก</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label>วันที่เริ่มผลิต/บริการ/นำเข้า:</label>
-                                <input type="text" class="form-control datepicker" autocomplete="off" data-date-format="mm/dd/yyyy">
-                            </div>
-                            <div class="col">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="tax1" name="tax" class="custom-control-input" checked>
-                                    <label class="custom-control-label" for="tax1">ชำระภาษี</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="tax2" name="tax" class="custom-control-input">
-                                    <label class="custom-control-label" for="tax2">ยกเว้นภาษี</label>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12" *ngIf="checkFormArr == true">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th class="text-center cursor-default">เลือก</th>
+                                            <th class="text-center cursor-default">ประเภทสินค้า/บริการ</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of getSubProducts">
+                                            <td scope="row" class="text-center align-middle">
+                                                <div class="custom-control custom-checkbox custom-control-inline">
+                                                    <input type="checkbox" class="custom-control-input" id="prod{{item.productId}}" [value]="item.productId">
+                                                    <label class="custom-control-label" for="prod{{item.productId}}"></label>
+                                                </div>
+                                            </td>
+                                            <td>{{item.productName}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </tab>
@@ -308,10 +372,28 @@
             </div>
                 <div class="col-12 mt-3">
                     <div class="border-top border-bottom text-center pt-2 pb-2 bg-light mt-2 mb-4">
-                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> บันทึก</button>&nbsp;
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> บันทึก</button>&nbsp;
                         <button type="reset" class="btn btn-warning"><i class="fa fa-refresh"></i> ล้างข้อมูล</button>
                     </div>
                 </div>
         </div>
     </div>
 </form>
+
+<!-- Prefix modal -->
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">เลือก คำนำหน้าชื่อ และ คำลงท้าย</h5>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="custom-control custom-radio" *ngFor="let item of getAllPrePostFix">
+        <input type="radio" id="prefix{{item.ppId}}" [(ngModel)]="getPrefix" [(value)]="item.ppId" class="custom-control-input" (click)="modalRef.hide()" (ngModelChange)="onChangeTitleName($event)">
+        <label class="custom-control-label" for="prefix{{item.ppId}}" (click)="modalRef.hide()">
+            {{item.ppPrefix}}  {{item.ppPostfix}}
+        </label>
+    </div>
+  </div>
+</ng-template>
