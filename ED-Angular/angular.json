@@ -29,17 +29,9 @@
             "styles": [
               "src/assets/styles.scss",
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "node_modules/font-awesome/css/font-awesome.css",
-              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "src/assets/bootstrap-datepicker/bootstrap-datepicker.min.css",
-              "src/assets/select2/select2.min.css"
+              "node_modules/font-awesome/css/font-awesome.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "src/assets/bootstrap-datepicker/bootstrap-datepicker-custom.js",
-              "src/assets/bootstrap-datepicker/bootstrap-datepicker.th.min.js",
-              "src/assets/input-mask/inputmask.bundle.js",
-              "src/assets/select2/select2.min.js",
               "src/assets/sweetalert2.js"
             ]
           },

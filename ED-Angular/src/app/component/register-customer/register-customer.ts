@@ -4,8 +4,6 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { BsLocaleService, listLocales } from 'ngx-bootstrap';
-declare let jquery:any;
-declare let $ :any;
 declare let swal: any;
 
 
@@ -78,8 +76,8 @@ export class RegisterCustomer implements OnInit{
             email: [''],
             receiveid: ['', Validators.required],
             receivedate: ['', Validators.required],
-            receiver:['', Validators.required],
-            ctypeId:['', Validators.required],
+            receiver: ['', Validators.required],
+            ctypeId: ['', Validators.required],
             building: [''],
             roomNo: [''],
             floor: [''],
@@ -92,19 +90,6 @@ export class RegisterCustomer implements OnInit{
             cardId2: [''],
             taxType: ['01', Validators.required],
             products: this.formBuilder.array([this.initProducts()])
-        });
-
-        $(document).ready(function () {
-            $('.datepicker').datepicker({
-                format: 'dd/mm/yyyy',
-                language: 'th',
-                thaiyear: true,
-                orientation: 'bottom',
-                autoclose: true,
-                todayHighlight: true
-            });
-            $('.mask-cardId').inputmask('9-9999-99999-99-9');
-            $('.select2').select2({width: '100%'});
         });
     }
 
@@ -187,7 +172,7 @@ export class RegisterCustomer implements OnInit{
                     timer: 2000
                   });
                   setTimeout(() => {
-                    window.location.href = "http://localhost:4200"
+                    window.location.href = 'http://localhost:4200';
                   }, 3000);
                 console.log(JSON.stringify(this.registerForm.value));
             },
