@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { BsLocaleService, listLocales } from 'ngx-bootstrap';
+import { DatePipe } from '@angular/common';
 declare let swal: any;
 
 
@@ -34,7 +35,8 @@ export class RegisterCustomer implements OnInit{
         private http: HttpClient,
         private formBuilder: FormBuilder,
         private modalService: BsModalService,
-        private localeService: BsLocaleService
+        private localeService: BsLocaleService,
+        public datepipe: DatePipe
     ){}
     ngOnInit(){
         // getReceiver
@@ -146,7 +148,8 @@ export class RegisterCustomer implements OnInit{
                 'Content-Type':  'application/json'
               })
         };
-        let params = {
+        const convertDate = this.datepipe.transform(this.registerForm.value.receivedate, 'dd/MM/yyyy');
+        const params = {
             "customer" : {
                 cusId: this.registerForm.value.cusId,
                 address:  this.concatAddress,
@@ -155,14 +158,14 @@ export class RegisterCustomer implements OnInit{
                 phone: this.registerForm.value.phone,
                 email: this.registerForm.value.email,
                 receiveid : this.registerForm.value.receiveid,
-                receivedate: "29/06/2561",
+                receivedate: convertDate,
                 receiver : this.registerForm.value.receiver
             },
             products: []
         };
         if (this.registerForm.invalid) {
             return;
-        } 
+        }
         this.http.post('http://13.250.227.94:7001/ED-RestAPI/register',
             params, httpOptions).subscribe(suc => {
                 swal({
@@ -172,9 +175,9 @@ export class RegisterCustomer implements OnInit{
                     timer: 2000
                   });
                   setTimeout(() => {
-                    window.location.href = 'http://localhost:4200';
+                    window.location.href = 'http://demo.ipassion.co.th/ed-poc/';
                   }, 3000);
-                console.log(JSON.stringify(this.registerForm.value));
+                // console.log(JSON.stringify(this.registerForm.value));
             },
             err => {
                 swal({

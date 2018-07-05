@@ -18,7 +18,7 @@ import { RegisterCustomer } from './component/register-customer/register-custome
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { deLocale } from 'ngx-bootstrap/locale';
 defineLocale('th', deLocale);
-import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,7 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot()
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

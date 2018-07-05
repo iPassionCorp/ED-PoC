@@ -16,7 +16,9 @@
                     <div class="col-12 col-sm-3">
                         <div class="input-group">
                             <input type="text" class="form-control datepicker" autocomplete="off"
-                            formControlName="receivedate" [ngClass]="{ 'is-invalid': submitted && f.receivedate.errors }">
+                            formControlName="receivedate" bsDatepicker
+                            [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', containerClass: 'theme-blue', showWeekNumbers: false }" 
+                            [ngClass]="{ 'is-invalid': submitted && f.receivedate.errors }">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>
