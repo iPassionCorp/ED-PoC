@@ -100,6 +100,7 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value = "/saveCustomer", method = RequestMethod.POST )
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public Map<String, Object> saveCus(@RequestBody PocCustomer pocCustomer) {
 		Map<String, Object> res = new HashMap<>();
 		Gson gson = new Gson();
@@ -120,6 +121,7 @@ public class CustomerController {
 	//4004
 //	@RequestMapping("/saveData")
 	@RequestMapping(value = "/saveCusProducts", method = RequestMethod.POST )
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public Map<String, Object> saveData(@RequestBody SaveData data) {
 		Map<String, Object> res = new HashMap<>();
 		Gson gson = new Gson();
@@ -138,6 +140,7 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value = "/getProductsByCus", method = RequestMethod.POST )
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public Map<String, Object> getCustomer(@RequestBody PocCustomer pocCustomer) {
 		Map<String, Object> res = new HashMap<>();
 		Gson gson = new Gson();
@@ -153,6 +156,7 @@ public class CustomerController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST )
+	@CrossOrigin(origins = "*", maxAge = 3600)
 	public Map<String, Object> register(@RequestBody SaveDataAll data) {
 		Map<String, Object> res = new HashMap<>();
 		Gson gson = new Gson();

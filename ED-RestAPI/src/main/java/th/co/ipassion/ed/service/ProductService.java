@@ -33,6 +33,10 @@ public class ProductService {
 	@Transactional
 	public Map<String,Object> saveCusProduct(SaveData data,Map<String,Object> res){
 		
+//		deleteByCusId
+//		pocRegisCusProdRepository.deleteAll(pocRegisCusProdRepository.findAlLByIdCusId(data.getCusId()));
+		
+		
 //		for(PocRegisCusProd pro:data.getProducts()) {
 //			pro.setCusId(data.getCusId());
 //			if(pocRegisCusProdRepository.findAlLByCusIdAndGpIdAndProductId(pro.getCusId(),pro.getGpId(),pro.getProductId()).size()>1) {
