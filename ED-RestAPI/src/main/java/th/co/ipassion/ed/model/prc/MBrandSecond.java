@@ -1,8 +1,20 @@
 package th.co.ipassion.ed.model.prc;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import th.co.ipassion.ed.bean.prc.MBrandSecondBeanSave;
+import th.co.ipassion.ed.bean.prc.MBrandSecondBeanSearch;
 
 
 /**
@@ -14,7 +26,8 @@ import java.util.Date;
 @NamedQuery(name="MBrandSecond.findAll", query="SELECT m FROM MBrandSecond m")
 public class MBrandSecond implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@JsonIgnore
 	@EmbeddedId
 	private MBrandSecondPK id;
 
@@ -34,7 +47,43 @@ public class MBrandSecond implements Serializable {
 
 	public MBrandSecond() {
 	}
-
+	
+	public MBrandSecond(MBrandSecondBeanSearch bean) {
+		super();
+		this.id = new MBrandSecondPK();
+		this.id.setDutyCode(bean.getDutyCode());
+		this.id.setBrandMainCode(bean.getBrandMainCode());
+		this.id.setBrandSecondCode(bean.getBrandSecondCode());
+		this.nameEn = bean.getNameEn();
+		this.nameTh = bean.getNameTh();
+		this.startDate = bean.getStartDate();
+		this.endDate = bean.getEndDate();
+	}
+	
+	public MBrandSecond(MBrandSecondBeanSave bean) {
+		super();
+		this.id = new MBrandSecondPK();
+		this.id.setDutyCode(bean.getDutyCode());
+		this.id.setBrandMainCode(bean.getBrandMainCode());
+		this.id.setBrandSecondCode(bean.getBrandSecondCode());
+		this.nameEn = bean.getNameEn();
+		this.nameTh = bean.getNameTh();
+		this.startDate = bean.getStartDate();
+		this.endDate = bean.getEndDate();
+	}
+	
+	public String getDutyCode() {
+		return this.id.getDutyCode();
+	}
+	
+	public String getBrandMainCode() {
+		return this.id.getBrandMainCode();
+	}
+	
+	public String getBrandSecondCode() {
+		return this.id.getBrandSecondCode();
+	}
+	
 	public MBrandSecondPK getId() {
 		return this.id;
 	}

@@ -4,18 +4,20 @@ import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 
-public class MBrandMainBean {
+public class MBrandSecondBeanSave {
 	
 	@NotBlank(message = "this field require")
 	private String dutyCode;
-	
+	@NotBlank(message = "this field require")
 	private String brandMainCode;
+	@NotBlank(message = "this field require")
+	private String brandSecondCode;
 	private Date endDate;
 	private String nameEn;
 	private String nameTh;
 	private Date startDate;
 
-	public MBrandMainBean() {
+	public MBrandSecondBeanSave() {
 	}
 
 	public String getDutyCode() {
@@ -66,11 +68,21 @@ public class MBrandMainBean {
 		this.startDate = startDate;
 	}
 
+	public String getBrandSecondCode() {
+		return brandSecondCode;
+	}
+
+	public void setBrandSecondCode(String brandSecondCode) {
+		this.brandSecondCode = brandSecondCode;
+	}
+
 	@Override
 	public String toString() {
-		return "MBrandMainBean [dutyCode=" + dutyCode + ", brandMainCode=" + brandMainCode + ", endDate=" + endDate
-				+ ", nameEn=" + nameEn + ", nameTh=" + nameTh + ", startDate=" + startDate + "]";
+		return "MBrandSecondBeanSearch [dutyCode=" + dutyCode + ", brandMainCode=" + brandMainCode
+				+ ", brandSecondCode=" + brandSecondCode + ", endDate=" + endDate + ", nameEn=" + nameEn + ", nameTh="
+				+ nameTh + ", startDate=" + startDate + "]";
 	}
+
 	
 	
 	

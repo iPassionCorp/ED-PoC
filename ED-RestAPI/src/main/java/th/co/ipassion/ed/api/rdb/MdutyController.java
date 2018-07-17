@@ -27,6 +27,7 @@ public class MdutyController {
 	@RequestMapping("/findDutyCode")
 	@CrossOrigin(origins = "*", maxAge = 3600)
 	public Iterable<MDuty> findDutyCode(@RequestBody MDuty mDuty) {
+		//TODO write with criteria builder
 		return mDutyRepository.findAll();
 	}
 	

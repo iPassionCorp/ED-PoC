@@ -13,7 +13,8 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import th.co.ipassion.ed.bean.prc.MBrandMainBean;
+import th.co.ipassion.ed.bean.prc.MBrandMainBeanSave;
+import th.co.ipassion.ed.bean.prc.MBrandMainBeanSearch;
 
 
 /**
@@ -47,7 +48,18 @@ public class MBrandMain implements Serializable {
 	public MBrandMain() {
 	}
 	
-	public MBrandMain(MBrandMainBean bean) {
+	public MBrandMain(MBrandMainBeanSearch bean) {
+		super();
+		this.id = new MBrandMainPK();
+		this.id.setDutyCode(bean.getDutyCode());
+		this.id.setBrandMainCode(bean.getBrandMainCode());
+		this.nameEn = bean.getNameEn();
+		this.nameTh = bean.getNameTh();
+		this.startDate = bean.getStartDate();
+		this.endDate = bean.getEndDate();
+	}
+	
+	public MBrandMain(MBrandMainBeanSave bean) {
 		super();
 		this.id = new MBrandMainPK();
 		this.id.setDutyCode(bean.getDutyCode());

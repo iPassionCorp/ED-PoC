@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import th.co.ipassion.ed.bean.prc.MBrandMainBean;
+import th.co.ipassion.ed.bean.prc.MBrandMainBeanSave;
+import th.co.ipassion.ed.bean.prc.MBrandMainBeanSearch;
 import th.co.ipassion.ed.model.prc.MBrandMain;
 import th.co.ipassion.ed.repository.prc.MBrandMainRepository;
 
@@ -29,14 +30,14 @@ public class MBrandMainController {
 	
 	@RequestMapping("/findBrandMainCodeByObject")
 	@CrossOrigin(origins = "*", maxAge = 3600)
-	public Iterable<MBrandMain> findBrandMainCodeByObject(@RequestBody MBrandMainBean mBrandMainBean) {
+	public Iterable<MBrandMain> findBrandMainCodeByObject(@Valid@RequestBody MBrandMainBeanSearch mBrandMainBean) {
 		//TODO write with criteria builder
 		return mBrandMainRepository.findAll();
 	}
 	
 	@RequestMapping("/saveBrandMainCode")
 	@CrossOrigin(origins = "*", maxAge = 3600)
-	public MBrandMain saveBrandMainCode(@Valid@RequestBody MBrandMainBean mBrandMainBean) {
+	public MBrandMain saveBrandMainCode(@Valid@RequestBody MBrandMainBeanSearch mBrandMainBean) {
 		log.info(mBrandMainBean.toString());
 		if(StringUtils.isEmpty(mBrandMainBean.getBrandMainCode())) {
 			mBrandMainBean.setBrandMainCode(jdbcTemplate.queryForObject("SELECT LPAD(EDPRC.BRAND_MAIN_SEQ.NEXTVAL, 3, '0') FROM DUAL", String.class));
@@ -45,7 +46,7 @@ public class MBrandMainController {
 	}
 	@RequestMapping("/deleteBrandMainCode")
 	@CrossOrigin(origins = "*", maxAge = 3600)
-	public void deleteBrandMainCode(@RequestBody MBrandMainBean mBrandMainBean) {
+	public void deleteBrandMainCode(@Valid@RequestBody MBrandMainBeanSave mBrandMainBean) {
 		 mBrandMainRepository.delete(new MBrandMain(mBrandMainBean));
 		 //TODO return success;
 	}
