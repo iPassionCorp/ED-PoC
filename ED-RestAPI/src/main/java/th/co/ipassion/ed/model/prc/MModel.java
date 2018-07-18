@@ -1,8 +1,20 @@
 package th.co.ipassion.ed.model.prc;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import th.co.ipassion.ed.bean.prc.MModelBeanSave;
+import th.co.ipassion.ed.bean.prc.MModelBeanSearch;
 
 
 /**
@@ -14,11 +26,12 @@ import java.util.Date;
 @NamedQuery(name="MModel.findAll", query="SELECT m FROM MModel m")
 public class MModel implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@JsonIgnore
 	@EmbeddedId
 	private MModelPK id;
 
-	@Column(name="\"DESC\"")
+	@Column(name="DESCRIPTION")
 	private String desc;
 
 	@Temporal(TemporalType.DATE)
@@ -31,6 +44,26 @@ public class MModel implements Serializable {
 
 	public MModel() {
 	}
+	
+	public MModel(MModelBeanSearch bean) {
+		super();
+		this.id = new MModelPK();
+		this.id.setDutyCode(bean.getDutyCode());
+		this.id.setModelCode(bean.getModelCode());
+		this.desc = bean.getDesc();
+		this.startDate = bean.getStartDate();
+		this.endDate = bean.getEndDate();
+	}
+	
+	public MModel(MModelBeanSave bean) {
+		super();
+		this.id = new MModelPK();
+		this.id.setDutyCode(bean.getDutyCode());
+		this.id.setModelCode(bean.getModelCode());
+		this.desc = bean.getDesc();
+		this.startDate = bean.getStartDate();
+		this.endDate = bean.getEndDate();
+	}
 
 	public MModelPK getId() {
 		return this.id;
@@ -39,7 +72,15 @@ public class MModel implements Serializable {
 	public void setId(MModelPK id) {
 		this.id = id;
 	}
-
+	
+	public String getDutyCode() {
+		return this.id.getDutyCode();
+	}
+	
+	public String getModelCode() {
+		return this.id.getModelCode();
+	}
+	
 	public String getDesc() {
 		return this.desc;
 	}

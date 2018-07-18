@@ -1,8 +1,20 @@
 package th.co.ipassion.ed.model.prc;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import th.co.ipassion.ed.bean.prc.MSizeBeanSave;
+import th.co.ipassion.ed.bean.prc.MSizeBeanSearch;
 
 
 /**
@@ -14,11 +26,12 @@ import java.util.Date;
 @NamedQuery(name="MSize.findAll", query="SELECT m FROM MSize m")
 public class MSize implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@JsonIgnore
 	@EmbeddedId
 	private MSizePK id;
 
-	@Column(name="\"DESC\"")
+	@Column(name="DESCRIPTION")
 	private String desc;
 
 	@Temporal(TemporalType.DATE)
@@ -34,6 +47,28 @@ public class MSize implements Serializable {
 
 	public MSize() {
 	}
+	
+	public MSize(MSizeBeanSearch bean) {
+		super();
+		this.id = new MSizePK();
+		this.id.setDutyCode(bean.getDutyCode());
+		this.id.setSizeCode(bean.getSizeCode());
+		this.desc = bean.getDesc();
+		this.unitCode = bean.getUnitCode();
+		this.startDate = bean.getStartDate();
+		this.endDate = bean.getEndDate();
+	}
+	
+	public MSize(MSizeBeanSave bean) {
+		super();
+		this.id = new MSizePK();
+		this.id.setDutyCode(bean.getDutyCode());
+		this.id.setSizeCode(bean.getSizeCode());
+		this.desc = bean.getDesc();
+		this.unitCode = bean.getUnitCode();
+		this.startDate = bean.getStartDate();
+		this.endDate = bean.getEndDate();
+	}
 
 	public MSizePK getId() {
 		return this.id;
@@ -41,6 +76,14 @@ public class MSize implements Serializable {
 
 	public void setId(MSizePK id) {
 		this.id = id;
+	}
+	
+	public String getDutyCode() {
+		return this.id.getDutyCode();
+	}
+	
+	public String getSizeCode() {
+		return this.id.getSizeCode();
 	}
 
 	public String getDesc() {
